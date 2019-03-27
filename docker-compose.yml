@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  dev:
+    build: .
+    volumes:
+    - type: bind
+      source: ./src
+      target: /cpp-dev
+  minio:
+    image: minio/minio
+    volumes:
+    - type: bind
+      source: ./data
+      target: /export
+    ports:
+    - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: hogehoge
+      MINIO_SECRET_KEY: hogehoge
+    command: server /export
